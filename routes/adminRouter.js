@@ -33,6 +33,7 @@ router.post('/editCategory/:id',adminAuth,categoryController.editCategory)
 
 //brand management
 router.get('/brands',adminAuth,brandController.getBrandPage)
+router.post('/addBrand',adminAuth,uploads.single('image'),brandController.addBrand)
 
 
 module.exports = router;

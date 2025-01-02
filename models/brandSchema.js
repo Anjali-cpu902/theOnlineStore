@@ -23,6 +23,6 @@ const brandSchema = new Schema({
 
 
 
-const Brand = mongoose.module("Brand",brandSchema);
+const Brand = mongoose.model("Brand",brandSchema);
 
 module.exports = Brand

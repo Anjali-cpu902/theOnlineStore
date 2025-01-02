@@ -1,4 +1,4 @@
-const Brand = require('../../models/bannerSchema');
+const Brand = require('../../models/brandSchema');
 const Product = require('../../models/productSchema');
 
 
@@ -27,6 +27,38 @@ const getBrandPage = async(req,res) =>{
 
 
 
+const addBrand = async(req,res) =>{
+    try {
+        
+        console.log(req.body)
+        const brand = req.body.name;
+        const findBrand = await Brand.findOne({brand})
+        if(!findBrand){
+            const image = req.file.filename;
+            const newBrand = new Brand({
+                brandName:brand,
+                brandImage:image,
+                
+            })
+            console.log("brand:", brand);
+            console.log("image:", image);
+            await newBrand.save();
+            console.log("Brand saved")
+            
+            res.redirect('/admin/brands')
+        }
+        
+    } catch (error) {
+        console.log(error)
+        res.redirect('/pageerror')
+        
+    }
+}
+
+
+
 module.exports = {
     getBrandPage,
+    addBrand,
+    
 }
