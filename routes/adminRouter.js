@@ -40,7 +40,8 @@ router.get('/unBlockBrand',adminAuth,brandController.unBlockBrand)
 router.get('/deleteBrand',adminAuth,brandController.deleteBrand)
 
 //product management
-router.get('/addproducts',adminAuth,productController.getProductAddPage)
+router.get('/addProducts',adminAuth,productController.getProductAddPage)
+router.post('/addProducts',adminAuth,uploads.array("images",4),productController.addProducts)
 
 
 
