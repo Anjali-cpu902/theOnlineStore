@@ -31,7 +31,7 @@
                <div class="card mb-4">
                    <div class="card-body">
                        <form method="post" action="/admin/addProducts" enctype="multipart/form-data"
-                           onsubmit="return validateForm()"
+                           onsubmit="return validateForm()">
 ">
                            <div class="mb-4">
                                <label for="product_name" class="form-label">Product Name</label>
@@ -276,6 +276,14 @@
         const files = event.target.files;
         for(let i=0;i<files.length;i++){
             const file = files[i];
+
+                // Check if the file is an image
+        if (!file.type.startsWith('image/')) { 
+            alert("Please select valid image files (e.g., JPG, JPEG, PNG).");
+        continue; 
+    }
+
+
             selectedImages.push(file);
             const thumbnail = document.createElement('div')
             thumbnail.classList.add('thumbnail');

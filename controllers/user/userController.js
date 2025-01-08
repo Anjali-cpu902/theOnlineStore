@@ -18,11 +18,12 @@ const pageNotFound=async(req,res)=>{
 
 const loadHomePage=async (req,res)=>{
     try {
-        const user = req.session.user;
+        //const user = req.session.user;
+        const userId = req.session.user;
         
-        if(user){
-            const userData = await User.findOne({_id:user._id})
-            res.render("home",{user:userData})
+        if(userId){
+            const userData = await User.findById(userId)
+            return res.render("home",{user:userData})
         }else{
             return res.render("home")
         }
@@ -93,7 +94,7 @@ async function sendVerificationEmail(email,otp){
 
 
 const signup = async(req,res)=>{
-    const {name,email,phone,password} = req.body;
+    // const {name,email,phone,password} = req.body;
     try {
 
         const {name,phone,email, password, cPassword}=req.body;
@@ -116,7 +117,7 @@ const signup = async(req,res)=>{
         req.session.userOtp=otp;
         req.session.userData={name,phone,email,password}
 
-
+        
         res.render("verify-otp")
         console.log("OTP send",otp)
         
