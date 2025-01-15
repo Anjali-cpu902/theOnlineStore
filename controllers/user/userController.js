@@ -41,7 +41,13 @@ const loadHomePage=async (req,res)=>{
 
 const loadSignup = async(req,res) =>{
     try {
-        return res.render('signup');
+        const userId = req.session.user;
+        if(!userId){
+            return res.render('signup');
+        }else{
+            res.redirect('/')
+        }
+        
     } catch (error) {
         console.log("Home page not loading",error);
         res.status(500).send('Server error')

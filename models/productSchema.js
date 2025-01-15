@@ -37,6 +37,10 @@ const productSchema = new Schema({
         type:Number,
         default:true,
     },
+    color: {
+        type:String,
+        required:true,
+    }, 
     productImage:{
         type:[String],
         required:true,
