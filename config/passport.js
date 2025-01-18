@@ -11,45 +11,45 @@ passport.use(new GoogleStrategy({
 },
 
 
-async(accessToken,refreshToken,profile,done)=>{
-    try {
+    async (accessToken, refreshToken, profile, done) => {
+        try {
 
-        let user = await User.findOne({$or:[{googleId:profile.id},{email:profile.emails[0].value}]})
-        if(user){
-            return done(null,user);
-        } else {
-            user = new User({
-                name:profile.displayName,
-                email:profile.emails[0].value,
-                googleId:profile.id,
-            })
-            await user.save();
-            
+            let user = await User.findOne({ $or: [{ googleId: profile.id }, { email: profile.emails[0].value }] })
+            if (user) {
+                return done(null, user);
+            } else {
+                user = new User({
+                    name: profile.displayName,
+                    email: profile.emails[0].value,
+                    googleId: profile.id,
+                })
+                await user.save();
+
+            }
+            return done(null, user)
+
+        } catch (error) {
+
+            return done(error, null)
+
         }
-        return done(null,user)
-        
-    } catch (error) {
-
-        return done(error,null)
-        
     }
-}
 ));
 
 
-passport.serializeUser((user,done)=>{
+passport.serializeUser((user, done) => {
 
-    done(null,user.id)
+    done(null, user.id)
 
 })
-passport.deserializeUser((id,done)=>{
+passport.deserializeUser((id, done) => {
     User.findById(id)
-    .then(user=>{
-        done(null,user)
-    })
-    .catch(err=>{
-        done(err,null)
-    })
+        .then(user => {
+            done(null, user)
+        })
+        .catch(err => {
+            done(err, null)
+        })
 })
 
 
